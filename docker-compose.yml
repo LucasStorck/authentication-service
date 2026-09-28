@@ -1,15 +1,28 @@
 services:
   api:
     image: auth
+    build: .
     ports:
       - "8080:8080"
+    environment:
+      DB_HOST: db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-users_db}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
     depends_on:
       - db
   db:
     image: postgres:17
     environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
-      POSTGRES_DB: users_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-users_db}
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
