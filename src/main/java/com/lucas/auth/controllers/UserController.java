@@ -75,7 +75,7 @@ public class UserController {
 
   @Operation(summary = "Get user by username")
   @GetMapping("/{username}")
-  @PreAuthorize("hasAuthority('SCOPE_SUPERUSER') or #username == authentication.name")
+  @PreAuthorize("hasAuthority('SCOPE_SUPERUSER') or hasAuthority('SCOPE_USER')")
   public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username, JwtAuthenticationToken token) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
