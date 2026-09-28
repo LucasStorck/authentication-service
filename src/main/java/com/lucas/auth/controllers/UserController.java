@@ -2,6 +2,7 @@ package com.lucas.auth.controllers;
 
 import com.lucas.auth.dtos.CreateUserDto;
 import com.lucas.auth.dtos.UpdateUserDto;
+import com.lucas.auth.dtos.UserResponseDto;
 import com.lucas.auth.entities.Role;
 import com.lucas.auth.entities.RoleType;
 import com.lucas.auth.entities.User;
@@ -65,20 +66,23 @@ public class UserController {
   @Operation(summary = "List all users")
   @GetMapping
   @PreAuthorize("hasAuthority('SCOPE_SUPERUSER')")
-  public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.ok(userRepository.findAll());
+  public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+    List<UserResponseDto> users = userRepository.findAll().stream()
+        .map(UserResponseDto::from)
+        .toList();
+    return ResponseEntity.ok(users);
   }
 
   @Operation(summary = "Get user by username")
   @GetMapping("/{username}")
   @PreAuthorize("hasAuthority('SCOPE_SUPERUSER') or #username == authentication.name")
-  public ResponseEntity<User> getUserByUsername(@PathVariable String username, JwtAuthenticationToken token) {
+  public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username, JwtAuthenticationToken token) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
     validateUserAccess(user, token);
 
-    return ResponseEntity.ok(user);
+    return ResponseEntity.ok(UserResponseDto.from(user));
   }
 
   @Operation(summary = "Update user")
