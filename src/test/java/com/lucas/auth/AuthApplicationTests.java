@@ -1,10 +1,10 @@
-package com.lucas.Auth;
+package com.lucas.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JavaAuthenticatorApplicationTests {
+class AuthApplicationTests {
 
 	@Test
 	void contextLoads() {

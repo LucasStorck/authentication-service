@@ -1,9 +1,9 @@
-package com.lucas.Auth.entities;
+package com.lucas.auth.entities;
 
-import com.lucas.Auth.dtos.LoginRequestDto;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.util.Set;
@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -32,6 +33,7 @@ public class User {
     private Instant createdAt;
 
     @Column(name = "updated_at")
+    @LastModifiedDate
     private Instant updatedAt;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -104,19 +106,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = Instant.now();
-    }
-
-    public boolean isLoginIncorrect(LoginRequestDto loginRequest, PasswordEncoder passwordEncoder) {
-        return !passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }

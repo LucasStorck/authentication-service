@@ -1,4 +1,4 @@
-package com.lucas.Auth.dtos;
+package com.lucas.auth.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

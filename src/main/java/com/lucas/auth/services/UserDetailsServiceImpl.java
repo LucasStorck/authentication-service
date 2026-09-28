@@ -1,6 +1,6 @@
-package com.lucas.Auth.services;
+package com.lucas.auth.services;
 
-import com.lucas.Auth.repositories.UserRepository;
+import com.lucas.auth.repositories.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

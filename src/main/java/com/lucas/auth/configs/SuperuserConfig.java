@@ -1,9 +1,9 @@
-package com.lucas.Auth.configs;
+package com.lucas.auth.configs;
 
-import com.lucas.Auth.entities.RoleType;
-import com.lucas.Auth.entities.User;
-import com.lucas.Auth.repositories.RoleRepository;
-import com.lucas.Auth.repositories.UserRepository;
+import com.lucas.auth.entities.RoleType;
+import com.lucas.auth.entities.User;
+import com.lucas.auth.repositories.RoleRepository;
+import com.lucas.auth.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

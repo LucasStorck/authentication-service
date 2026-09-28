@@ -1,12 +1,13 @@
-package com.lucas.Auth.controllers;
+package com.lucas.auth.controllers;
 
-import com.lucas.Auth.dtos.CreateUserDto;
-import com.lucas.Auth.dtos.UpdateUserDto;
-import com.lucas.Auth.entities.Role;
-import com.lucas.Auth.entities.RoleType;
-import com.lucas.Auth.entities.User;
-import com.lucas.Auth.repositories.RoleRepository;
-import com.lucas.Auth.repositories.UserRepository;
+import com.lucas.auth.dtos.CreateUserDto;
+import com.lucas.auth.dtos.UpdateUserDto;
+import com.lucas.auth.dtos.UserResponseDto;
+import com.lucas.auth.entities.Role;
+import com.lucas.auth.entities.RoleType;
+import com.lucas.auth.entities.User;
+import com.lucas.auth.repositories.RoleRepository;
+import com.lucas.auth.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -65,20 +66,23 @@ public class UserController {
   @Operation(summary = "List all users")
   @GetMapping
   @PreAuthorize("hasAuthority('SCOPE_SUPERUSER')")
-  public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.ok(userRepository.findAll());
+  public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+    List<UserResponseDto> users = userRepository.findAll().stream()
+        .map(UserResponseDto::from)
+        .toList();
+    return ResponseEntity.ok(users);
   }
 
   @Operation(summary = "Get user by username")
   @GetMapping("/{username}")
-  @PreAuthorize("hasAuthority('SCOPE_SUPERUSER') or #username == authentication.name")
-  public ResponseEntity<User> getUserByUsername(@PathVariable String username, JwtAuthenticationToken token) {
+  @PreAuthorize("hasAuthority('SCOPE_SUPERUSER') or hasAuthority('SCOPE_USER')")
+  public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username, JwtAuthenticationToken token) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
     validateUserAccess(user, token);
 
-    return ResponseEntity.ok(user);
+    return ResponseEntity.ok(UserResponseDto.from(user));
   }
 
   @Operation(summary = "Update user")

@@ -1,11 +1,11 @@
-package com.lucas.Auth.controllers;
+package com.lucas.auth.controllers;
 
-import com.lucas.Auth.dtos.LoginRequestDto;
-import com.lucas.Auth.dtos.LoginResponseDto;
-import com.lucas.Auth.dtos.RefreshRequestDto;
-import com.lucas.Auth.entities.User;
-import com.lucas.Auth.repositories.UserRepository;
-import com.lucas.Auth.services.JwtService;
+import com.lucas.auth.dtos.LoginRequestDto;
+import com.lucas.auth.dtos.LoginResponseDto;
+import com.lucas.auth.dtos.RefreshRequestDto;
+import com.lucas.auth.entities.User;
+import com.lucas.auth.repositories.UserRepository;
+import com.lucas.auth.services.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

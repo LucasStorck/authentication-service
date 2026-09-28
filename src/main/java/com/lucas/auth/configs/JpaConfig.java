@@ -1,4 +1,4 @@
-package com.lucas.Auth.configs;
+package com.lucas.auth.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
