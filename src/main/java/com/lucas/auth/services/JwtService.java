@@ -1,7 +1,7 @@
-package com.lucas.Auth.services;
+package com.lucas.auth.services;
 
-import com.lucas.Auth.entities.Role;
-import com.lucas.Auth.entities.User;
+import com.lucas.auth.entities.Role;
+import com.lucas.auth.entities.User;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;

@@ -1,6 +1,6 @@
-package com.lucas.Auth.entities;
+package com.lucas.auth.entities;
 
-import com.lucas.Auth.dtos.LoginRequestDto;
+import com.lucas.auth.dtos.LoginRequestDto;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
