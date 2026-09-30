@@ -1,0 +1,13 @@
+<main class="auth-page">
+  <section class="auth-card">
+    <h1>Hello, {{ username() }}!</h1>
+    <p class="subtitle">You are signed in.</p>
+
+    @if (user(); as u) {
+      <p><strong>E-mail:</strong> {{ u.email }}</p>
+      <p><strong>Roles:</strong> {{ u.roles.join(', ') }}</p>
+    }
+
+    <button class="btn" type="button" (click)="logout()">Logout</button>
+  </section>
+</main>

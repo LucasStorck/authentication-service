@@ -1,0 +1,38 @@
+<main class="auth-page">
+  <section class="auth-card">
+    <div class="icon">&#10132;</div>
+    <h1>Welcome!</h1>
+    <p class="subtitle">Sign in to your account</p>
+
+    @if (registered) {
+      <p class="form-success">Account created. You can sign in now.</p>
+    }
+    @if (error()) {
+      <p class="form-error">{{ error() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field" [class.invalid]="showError('username')">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" autocomplete="username" />
+        @if (showError('username')) {
+          <div class="error">Username is required.</div>
+        }
+      </div>
+
+      <div class="field" [class.invalid]="showError('password')">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+        @if (showError('password')) {
+          <div class="error">Password is required.</div>
+        }
+      </div>
+
+      <button class="btn" type="submit" [disabled]="loading()">
+        {{ loading() ? 'Signing in...' : 'Login →' }}
+      </button>
+    </form>
+
+    <p class="switch">No account yet? <a routerLink="/register">Create one</a></p>
+  </section>
+</main>
