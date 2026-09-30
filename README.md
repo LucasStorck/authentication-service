@@ -155,13 +155,14 @@ Start Postgres yourself (or `docker compose up -d db`), export the same
 variables from `.env` into your shell, then:
 
 ```bash
+cd backend
 ./mvnw spring-boot:run
 ```
 
 ### Default superuser
 
 On first startup, a `superuser` account is seeded (see
-[`SuperuserConfig`](src/main/java/com/lucas/auth/configs/SuperuserConfig.java))
+[`SuperuserConfig`](backend/src/main/java/com/lucas/auth/configs/SuperuserConfig.java))
 with a hardcoded password, purely to have a `SUPERUSER` account to test
 admin-only endpoints with locally. Never do this in anything beyond a local
 dev environment.
@@ -169,7 +170,7 @@ dev environment.
 ## Project structure
 
 ```
-src/main/java/com/lucas/auth/
+backend/src/main/java/com/lucas/auth/
 ├── configs/        Spring Security, JWT keys, JPA auditing, Swagger, dev-seed data
 ├── controllers/     REST endpoints
 ├── dtos/            Request/response records (entities are never exposed directly)
