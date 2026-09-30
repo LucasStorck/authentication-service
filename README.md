@@ -27,6 +27,7 @@ access control. Built as a learning/portfolio project.
 - Spring Data JPA + PostgreSQL
 - Flyway
 - springdoc-openapi (Swagger UI)
+- Angular + SCSS (login, register and a protected home page)
 - Docker & Docker Compose
 
 ## Architecture
@@ -146,8 +147,9 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-This starts Postgres and the API together; migrations run automatically on
-startup.
+This starts Postgres, the API and the web UI together; migrations run
+automatically on startup. The UI is served at http://localhost:4200 and proxies
+`/api` to the backend.
 
 ### 3b. Run without Docker
 
@@ -157,6 +159,15 @@ variables from `.env` into your shell, then:
 ```bash
 cd backend
 ./mvnw spring-boot:run
+```
+
+And, in another terminal, the frontend (dev server with `/api` proxied to
+`localhost:8080`):
+
+```bash
+cd frontend
+npm install
+npm start
 ```
 
 ### Default superuser
@@ -169,6 +180,8 @@ dev environment.
 
 ## Project structure
 
+This is a monorepo: `backend/` (Spring Boot API) and `frontend/` (Angular + SCSS).
+
 ```
 backend/src/main/java/com/lucas/auth/
 ├── configs/        Spring Security, JWT keys, JPA auditing, Swagger, dev-seed data
@@ -178,6 +191,10 @@ backend/src/main/java/com/lucas/auth/
 ├── exceptions/       Global exception handling
 ├── repositories/    Spring Data JPA repositories
 └── services/        JWT issuing, UserDetailsService
+
+frontend/src/app/
+├── core/            Auth service, HTTP interceptor (JWT), route guard
+└── pages/           Login, register, home
 ```
 
 ## License
