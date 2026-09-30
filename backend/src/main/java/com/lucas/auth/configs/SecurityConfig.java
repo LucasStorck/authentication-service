@@ -56,6 +56,9 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/api/refresh").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
             .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+            // Without this, ResponseStatusException/validation errors are forwarded to
+            // /error, which then requires auth and turns every 4xx into a 401.
+            .requestMatchers("/error").permitAll()
             .anyRequest().authenticated())
         .csrf(AbstractHttpConfigurer::disable)
         .cors(Customizer.withDefaults())
