@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-user-roles-table
+      author: authentication-service
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_user
+                    references: users(user_id)
+                    deleteCascade: true
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_roles_role
+                    references: roles(role_id)
+                    deleteCascade: true
+        - addPrimaryKey:
+            tableName: user_roles
+            columnNames: user_id, role_id

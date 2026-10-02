@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-roles-table
+      author: authentication-service
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_id, valueNumeric: 1 }
+              - column: { name: name, value: USER }
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_id, valueNumeric: 2 }
+              - column: { name: name, value: SUPERUSER }

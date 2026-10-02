@@ -17,7 +17,7 @@ access control. Built as a learning/portfolio project.
   validating JWTs signed with an RSA key pair (no external identity provider)
 - Role-based access control (`USER`, `SUPERUSER`) plus per-resource ownership
   checks, so a user can manage their own account but not someone else's
-- Schema versioned with Flyway
+- Schema versioned with Liquibase
 - OpenAPI/Swagger UI documentation
 
 ## Tech stack
@@ -25,7 +25,7 @@ access control. Built as a learning/portfolio project.
 - Java 21, Spring Boot 3.4
 - Spring Security (OAuth2 Resource Server, JWT)
 - Spring Data JPA + PostgreSQL
-- Flyway
+- Liquibase
 - springdoc-openapi (Swagger UI)
 - Angular + SCSS (login, register and a protected home page)
 - Docker & Docker Compose
