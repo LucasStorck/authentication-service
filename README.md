@@ -27,7 +27,7 @@ access control. Built as a learning/portfolio project.
 - Spring Data JPA + PostgreSQL
 - Liquibase
 - springdoc-openapi (Swagger UI)
-- Angular + SCSS (login, register and a protected home page)
+- React + Vite + Tailwind CSS with neobrutalism.dev components (login, register and a protected home page)
 - Docker & Docker Compose
 
 ## Architecture
@@ -180,7 +180,7 @@ dev environment.
 
 ## Project structure
 
-This is a monorepo: `backend/` (Spring Boot API) and `frontend/` (Angular + SCSS).
+This is a monorepo: `backend/` (Spring Boot API) and `frontend/` (React + Tailwind).
 
 ```
 backend/src/main/java/com/lucas/auth/
@@ -192,9 +192,10 @@ backend/src/main/java/com/lucas/auth/
 ├── repositories/    Spring Data JPA repositories
 └── services/        JWT issuing, UserDetailsService
 
-frontend/src/app/
-├── core/            Auth service, HTTP interceptor (JWT), route guard
-└── pages/           Login, register, home
+frontend/src/
+├── core/            API client (JWT), auth context, route guard
+├── pages/           Login, register, home
+└── components/ui/   neobrutalism.dev components
 ```
 
 ## License
