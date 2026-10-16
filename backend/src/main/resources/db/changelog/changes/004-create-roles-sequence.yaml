@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-roles-sequence
+      author: authentication-service
+      changes:
+        - createSequence:
+            sequenceName: roles_seq
+            startValue: 100
+            incrementBy: 50
