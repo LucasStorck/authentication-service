@@ -48,13 +48,15 @@ Everything: `docker compose up -d --build` (copy `.env.example` to `.env` first;
 - Frontend formatting: Prettier (no semicolons, single quotes, width 100).
 - Keep the README in sync when behavior, endpoints or layout change.
 
+## CI
+
+`.github/workflows/ci.yml` runs on PRs and pushes to `main`: backend `./mvnw verify`, frontend `npm ci` + lint + build, then a Docker build of both images. Backend tests use H2 (profile `test`), so no Docker/Postgres is needed to run them.
+
 ## Roadmap (what is still missing)
 
 1. **Tests**
-   - Backend: unit tests for `JwtService`, controllers and services; integration tests for the register/login/refresh/ownership flows (Testcontainers Postgres or H2). Currently only the context-load test `AuthApplicationTests` exists.
    - Frontend: set up Vitest + React Testing Library; cover `api.ts`, the auth context, the guard and the login/register forms.
 2. **User management UI** (frontend)
    - `SUPERUSER`-only page listing users (`GET /api/user`).
    - Edit (`PUT /api/user/{username}`) and delete (`DELETE /api/user/{username}`) of the own account, and of any account for `SUPERUSER`.
 3. **Token refresh** — the frontend stores only the access token and never calls `/api/refresh`. Store the refresh token, and on a 401 from a protected call try one refresh, retry the request, and only log out if that fails. Logout should also clear the refresh token.
-4. **CI** — GitHub Actions: backend `./mvnw verify`, frontend `npm ci && npm run lint && npm run build` (plus tests once they exist), and a Docker build check.
